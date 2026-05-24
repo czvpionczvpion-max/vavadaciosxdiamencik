@@ -1033,7 +1033,7 @@
     <div class="bonus-badge">BONUS POWITALNY</div>
     <div class="bonus-amount">+100% DO DEPOZYTU</div>
     <div class="bonus-desc">+ 100 DARMOWYCH SPINÓW</div>
-    <div class="bonus-code-chip">KLIKNIJ ABY ODEBRAĆ</div>
+    <div class="bonus-code-chip">KOD : CIOS</div>
   </div>
 </div>
 
@@ -1041,7 +1041,6 @@
   <div class="dashed-box">
     <div class="logo-mini">
       <img class="vavada-logo-img" src="VAVADA.PNG" alt="VAVADA" onerror="this.style.display='none'; this.nextSibling?.style.setProperty('display','flex');">
-      <div style="display: none; font-family:'Orbitron'; font-size:2rem; color:#fe284a;">VAVADA</div>
     </div>
 
     <h1 class="font-display custom-heading text-bone" id="dynamicHeading">
@@ -1053,7 +1052,8 @@
     </div>
     
     <div class="bonus-code-display">
-      <div class="code-pill" id="copyCodePill">BONUS POWITALNY</div>
+      <div class="code-pill" id="copyCodePill">SKOPIUJ KOD : CIOS 📋</div>
+      <div class="copy-feedback-mini" id="copyFeedbackCode"></div>
     </div>
   </div>
   
@@ -1149,19 +1149,44 @@
       window.open(generateAffiliateLink(), '_blank');
     }
     
-    // Kopiowanie kodu
-    const codePill = document.getElementById('copyCodePill');
-    const feedbackCode = document.getElementById('copyFeedbackCode');
-    const CODE_TEXT = "MRCIOS X DIAMENCIK";
-    if (codePill) {
-      codePill.addEventListener('click', async () => {
-        codePill.style.transform = 'scale(0.98)';
-        setTimeout(() => { if(codePill) codePill.style.transform = ''; }, 150);
+    // KOD DO KOPIOWANIA (zmieniony na CIOS)
+    const CODE_TEXT = "CIOS";
+    
+    // Obsługa przycisku BONUS POWITALNY - kopiowanie kodu CIOS
+    const copyPill = document.getElementById('copyCodePill');
+    const feedbackElement = document.getElementById('copyFeedbackCode');
+    
+    if (copyPill) {
+      copyPill.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        // Efekt wizualny kliknięcia
+        copyPill.style.transform = 'scale(0.97)';
+        setTimeout(() => { if(copyPill) copyPill.style.transform = ''; }, 150);
+        
         try {
           await navigator.clipboard.writeText(CODE_TEXT);
-          if(feedbackCode) feedbackCode.innerHTML = '✅ KOD SKOPIOWANY!';
-          setTimeout(() => { if(feedbackCode) feedbackCode.innerHTML = ''; }, 2000);
-        } catch(e) { if(feedbackCode) feedbackCode.innerHTML = '⚠️ BŁĄD'; setTimeout(() => { if(feedbackCode) feedbackCode.innerHTML = ''; }, 1500); }
+          if (feedbackElement) {
+            feedbackElement.innerHTML = '✅ KOD CIOS SKOPIOWANY!';
+            feedbackElement.style.color = '#a5ffa5';
+          }
+          setTimeout(() => { 
+            if(feedbackElement) {
+              feedbackElement.innerHTML = '';
+              feedbackElement.style.color = '#ff8fa3';
+            }
+          }, 2000);
+        } catch(err) {
+          if (feedbackElement) {
+            feedbackElement.innerHTML = '⚠️ NIE UDALO SIE SKOPIOWAC';
+            feedbackElement.style.color = '#ff6b6b';
+          }
+          setTimeout(() => { 
+            if(feedbackElement) {
+              feedbackElement.innerHTML = '';
+              feedbackElement.style.color = '#ff8fa3';
+            }
+          }, 1800);
+        }
       });
     }
     
@@ -1254,40 +1279,31 @@
       symbol.textContent = randomSymbol;
       symbol.classList.add('falling-symbol');
       
-      // Losowa prędkość
       const speedClass = ['slow', 'medium', 'fast'][Math.floor(Math.random() * 3)];
       symbol.classList.add(speedClass);
       
-      // Losowa pozycja początkowa (0-100% szerokości)
       const startX = Math.random() * 100;
       symbol.style.left = startX + '%';
       
-      // Losowa wielkość (90% - 140% podstawowego rozmiaru)
       const scale = 0.8 + Math.random() * 0.9;
       symbol.style.fontSize = `clamp(${18 * scale}px, ${5 * scale}vw, ${48 * scale}px)`;
       
-      // Losowe opóźnienie startu (0-5s)
       const delay = Math.random() * 5;
       symbol.style.animationDelay = delay + 's';
       
-      // Dodanie do kontenera
       container.appendChild(symbol);
       
-      // Usunięcie po zakończeniu animacji
       symbol.addEventListener('animationend', () => {
         if (symbol.parentNode) symbol.parentNode.removeChild(symbol);
       });
     }
     
-    // Uruchomienie wielu spadających symboli w odstępach czasu
     let intervalId;
     function startFallingSymbols() {
       if (intervalId) clearInterval(intervalId);
-      // Dostosowanie gęstości na urządzenia mobilne (nieco mniej, by nie przeszkadzać)
       const isMobile = window.innerWidth < 768;
       const intervalTime = isMobile ? 550 : 350;
       intervalId = setInterval(() => {
-        // Losowo od 1 do 3 symboli naraz
         const count = Math.floor(Math.random() * 3) + 1;
         for (let i = 0; i < count; i++) {
           createFallingSymbol();
@@ -1302,11 +1318,8 @@
       }
     }
     
-    // Uruchomienie animacji po załadowaniu strony
     startFallingSymbols();
     
-    // Opcjonalnie: zatrzymaj animację gdy strona jest w tle (poprawia wydajność)
-    let isPageVisible = true;
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         if (intervalId) clearInterval(intervalId);
@@ -1315,7 +1328,6 @@
       }
     });
     
-    // Dostosowanie gęstości przy zmianie rozmiaru okna
     let resizeTimer;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimer);
