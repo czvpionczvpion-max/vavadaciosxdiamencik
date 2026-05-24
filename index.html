@@ -1040,12 +1040,13 @@
 <div class="main-content" id="mainContent">
   <div class="dashed-box">
     <div class="logo-mini">
-  <img class="vavada-logo-img" src="VAVADA.PNG" alt="VAVADA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-  <div style="display: none; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #fe284a, #ff6b82); background-clip: text; -webkit-background-clip: text; color: transparent;">VAVADA</div>
-</div>
+      <!-- POPRAWIONA ŚCIEŻKA - VAVADA.png (małe litery) -->
+      <img class="vavada-logo-img" src="VAVADA.png" alt="VAVADA" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div style="display: none; font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #fe284a, #ff6b82); background-clip: text; -webkit-background-clip: text; color: transparent;">VAVADA</div>
+    </div>
 
     <h1 class="font-display custom-heading text-bone" id="dynamicHeading">
-      uzyskaj nawet 100% do depozytu, oraz  100 darmowych spinów na <span class="text-toxic">WYLOSOWANEJ GRZE!</span>.
+      uzyskaj nawet 100% do depozytu, oraz 100 darmowych spinów na <span class="text-toxic">WYLOSOWANEJ GRZE!</span>
     </h1>
 
     <div class="main-action-wrapper">
@@ -1203,7 +1204,7 @@
     const learnBtn = document.getElementById('learnMoreBtn');
     if (learnBtn) learnBtn.addEventListener('click', () => document.getElementById('whyTitle')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     
-    // Obsługa błędu ładowania logo VAVADA.PNG
+    // Obsługa błędu ładowania logo VAVADA.png
     const vavadaLogo = document.querySelector('.vavada-logo-img');
     if (vavadaLogo) {
       vavadaLogo.addEventListener('error', function() {
@@ -1222,7 +1223,7 @@
     
     // Wszystkie teksty po polsku
     const headingEl = document.getElementById('dynamicHeading');
-    if(headingEl) headingEl.innerHTML = 'uzyskaj 100% do pierwszego depozytu, oraz  100 darmowych spinów na <span class="text-toxic">THE DOG HOUSE</span>.';
+    if(headingEl) headingEl.innerHTML = 'uzyskaj 100% do pierwszego depozytu, oraz 100 darmowych spinów na <span class="text-toxic">THE DOG HOUSE</span>.';
     const whyTitleEl = document.getElementById('whyTitle');
     if(whyTitleEl) whyTitleEl.innerText = 'ZOBACZ PORADNIKI';
     
